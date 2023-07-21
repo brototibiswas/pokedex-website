@@ -1,0 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500");
+body {
+  background-color: #8bacd5;
+}
+
+.main-container {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+}
+.main-container .content-container {
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+}
+.main-container .content-container .main-logo {
+  width: 320px;
+  height: auto;
+  align-self: center;
+}

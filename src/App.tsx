@@ -1,7 +1,19 @@
-import "./css/App.css";
+import Cards from "./component/Cards/Cards";
+import "./App.css";
+import logo from "./assets/Pokemon-Logo.png";
 
 function App() {
-  return <>Hello</>;
+  return (
+    <>
+      <div className="main-container">
+        <div className="content-container">
+          <img className="main-logo" src={logo} />
+
+          <Cards />
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default App;

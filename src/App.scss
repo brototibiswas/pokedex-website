@@ -1,0 +1,23 @@
+@import 'sass/_variables.scss';
+
+body {
+    background-color: $background;
+}
+
+.main-container {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+
+    .content-container {
+        display: flex;
+        flex-direction: column;
+        width: 75%;
+
+        .main-logo {
+            width: 320px;
+            height: auto;
+            align-self: center;
+        }
+    }
+}
