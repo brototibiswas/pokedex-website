@@ -1,7 +1,11 @@
 import "./Card.css";
 import jigglypuff from "../../assets/Jigglypuff.png";
 
-const Card = () => {
+interface Props {
+  url: string;
+}
+
+const Card = ({ url }: Props) => {
   return (
     <div className="card">
       <img src={jigglypuff} />
