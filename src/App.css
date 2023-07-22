@@ -11,10 +11,10 @@ body {
 .main-container .content-container {
   display: flex;
   flex-direction: column;
-  width: 75%;
+  width: 75vw;
 }
 .main-container .content-container .main-logo {
-  width: 320px;
+  width: 300px;
   height: auto;
   align-self: center;
 }
