@@ -1,5 +1,5 @@
 import Card from "../Card/Card";
-import getPokeList from "../../network/PokeListApi";
+import { getPokeList } from "../../network/PokeListApi";
 import "./Cards.css";
 import { useEffect, useState } from "react";
 

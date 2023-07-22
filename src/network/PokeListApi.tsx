@@ -12,13 +12,13 @@
 //   }
 // }
 
+import PokemonDetail from "../models/pokemonDetail";
 import PokemonList from "../models/pokemonList";
 
 let baseURL = "https://pokeapi.co/api/v2";
-let endpoint = "pokemon";
 
-function getPokeList(): Promise<PokemonList> {
-  return fetch(`${baseURL}/${endpoint}`, { method: "GET" })
+export function getPokeList(): Promise<PokemonList> {
+  return fetch(`${baseURL}/pokemon`, { method: "GET" })
     .then((response) => {
       if (!response.ok) {
         throw new Error(
@@ -38,6 +38,32 @@ function getPokeList(): Promise<PokemonList> {
     });
 }
 
+export function getPokemon(url: string): Promise<any> {
+  console.log(url);
+  const promise = fetch(url, { method: "GET" })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(
+          `failed to get response. response status ${response.status}`
+        );
+      }
+      return response.json();
+    })
+    .then((data) => {
+      const pokemon: PokemonDetail = {
+        id: data.id || 0,
+        name: data.name || "",
+        imageURL: data.sprites.other["official-artwork"].front_default || "",
+      };
+      return pokemon;
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
+
+  return promise;
+}
+
 function isPokemonResultList(data: any): data is PokemonList {
   if (!data || !Array.isArray(data.results)) {
     return false;
@@ -47,5 +73,3 @@ function isPokemonResultList(data: any): data is PokemonList {
     return typeof item.name == "string" && typeof item.url == "string";
   });
 }
-
-export default getPokeList;
