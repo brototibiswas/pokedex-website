@@ -37,12 +37,11 @@
 
     .cardCategory {
         margin-top: 5px;
-
-        span {
-            font-size: 12px;
-            color: $purple;
-            margin-left: 5px;
-            font-weight: 300;
-        }
+        font-size: 12px;
+        color: $purple;
+        margin-left: 5px;
+        font-weight: 300;
+        text-transform: capitalize;
+        
     }
 }

@@ -9,13 +9,25 @@ interface Props {
 
 const Card = ({ url }: Props) => {
   const [pokemonDetail, setPokemonDetail] = useState<PokemonDetail>();
+  const [types, setTypes] = useState<string>();
 
   useEffect(() => {
     getPokemon(url).then((data) => {
-      console.log(data);
       setPokemonDetail(data);
     });
   }, [url]);
+
+  useEffect(() => {
+    const pokemonTypes = pokemonDetail?.types || [];
+    let typeName = "";
+    pokemonDetail?.types.forEach((entry, index) => {
+      typeName += entry.name;
+      if (index != pokemonTypes.length - 1) {
+        typeName += ", ";
+      }
+    });
+    setTypes(typeName);
+  }, [pokemonDetail]);
 
   return (
     <div className="card">
@@ -23,9 +35,7 @@ const Card = ({ url }: Props) => {
       <p className="cardHeader" key={pokemonDetail?.id}>
         {pokemonDetail?.name}
       </p>
-      <p className="cardCategory">
-        <span>Fairy, Normal</span>
-      </p>
+      <p className="cardCategory">{types}</p>
     </div>
   );
 };

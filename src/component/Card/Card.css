@@ -33,10 +33,9 @@
 }
 .card .cardCategory {
   margin-top: 5px;
-}
-.card .cardCategory span {
   font-size: 12px;
   color: #7b7bb4;
   margin-left: 5px;
   font-weight: 300;
+  text-transform: capitalize;
 }

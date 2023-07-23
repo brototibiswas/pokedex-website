@@ -14,6 +14,7 @@
 
 import PokemonDetail from "../models/pokemonDetail";
 import PokemonList from "../models/pokemonList";
+import PokemonType from "../models/pokemonTypes";
 
 let baseURL = "https://pokeapi.co/api/v2";
 
@@ -54,6 +55,7 @@ export function getPokemon(url: string): Promise<any> {
         id: data.id || 0,
         name: data.name || "",
         imageURL: data.sprites.other["official-artwork"].front_default || "",
+        types: getPokemonTypes(data),
       };
       return pokemon;
     })
@@ -72,4 +74,23 @@ function isPokemonResultList(data: any): data is PokemonList {
   return data.results.every((item: { name: any; url: any }) => {
     return typeof item.name == "string" && typeof item.url == "string";
   });
+}
+
+function getPokemonTypes(data: any): PokemonType[] {
+  if (!Array.isArray(data.types)) {
+    return [];
+  }
+
+  const types: PokemonType[] = [];
+
+  data.types.forEach((element: { type?: { name?: string; url?: string } }) => {
+    console.log(element.type);
+    const pokemonType: PokemonType = {
+      name: element.type?.name || "",
+      url: element.type?.url || "",
+    };
+    types.push(pokemonType);
+  });
+
+  return types;
 }
