@@ -1,5 +1,4 @@
 import "./Card.css";
-import jigglypuff from "../../assets/Jigglypuff.png";
 import { useEffect, useState } from "react";
 import { getPokemon } from "../../network/PokeListApi";
 import PokemonDetail from "../../models/pokemonDetail";
