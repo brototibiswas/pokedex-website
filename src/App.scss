@@ -1,7 +1,11 @@
 @import 'sass/_variables.scss';
 
+
 body {
-    background-color: $background;
+    background: linear-gradient(to right, rgb(242, 112, 156), rgb(255, 148, 114));
+    animation: animateGradient 2s ease-in-out infinite;
+    background-size: 400% 400%;
+    height: 100vh;
 }
 
 .main-container {
@@ -20,4 +24,16 @@ body {
             align-self: center;
         }
     }
+}
+
+@keyframes animateGradient {
+    0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }
