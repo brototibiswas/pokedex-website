@@ -22,8 +22,6 @@ const Cards = () => {
     return () => {};
   });
 
-  // getPokeList();
-
   return (
     <div className="cards-container">
       {pokemonURLList?.map((pokemon) => {

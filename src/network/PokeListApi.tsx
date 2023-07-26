@@ -1,17 +1,4 @@
-// interface Pokemon {
-//   id: number;
-//   name: string;
-//   types: Array<type> = [
-
-//   ]
-//     slot: number,
-//     type: Array<{
-//         name: string
-//         url: string
-//     }
-//   }
-// }
-
+import { getPokemonColor } from "../models/ColorEnum";
 import PokemonDetail from "../models/pokemonDetail";
 import PokemonList from "../models/pokemonList";
 import PokemonType from "../models/pokemonTypes";
@@ -39,15 +26,22 @@ export function getPokeList(): Promise<PokemonList> {
     });
 }
 
-export function getPokemon(url: string): Promise<any> {
-  console.log(url);
+export async function getPokemon(url: string): Promise<any> {
+  const response = await fetch(url, { method: "GET" });
+  if (!response.ok) {
+    throw new Error(
+      `failed to get response. response status ${response.status}`
+    );
+  }
+
+  const data = await response.json();
+  const speciesResponse = await fetch(data.species?.url || "", {
+    method: "GET",
+  });
+  const speciesData = await speciesResponse.json();
+
   const promise = fetch(url, { method: "GET" })
     .then((response) => {
-      if (!response.ok) {
-        throw new Error(
-          `failed to get response. response status ${response.status}`
-        );
-      }
       return response.json();
     })
     .then((data) => {
@@ -56,6 +50,7 @@ export function getPokemon(url: string): Promise<any> {
         name: data.name || "",
         imageURL: data.sprites.other["official-artwork"].front_default || "",
         types: getPokemonTypes(data),
+        color: getPokemonColor(speciesData.color?.name || ""),
       };
       return pokemon;
     })

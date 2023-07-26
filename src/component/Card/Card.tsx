@@ -2,6 +2,7 @@ import "./Card.css";
 import { useEffect, useState } from "react";
 import { getPokemon } from "../../network/PokeListApi";
 import PokemonDetail from "../../models/pokemonDetail";
+import { getPokemonColorHex } from "../../models/ColorEnum";
 
 interface Props {
   url: string;
@@ -30,12 +31,18 @@ const Card = ({ url }: Props) => {
   }, [pokemonDetail]);
 
   return (
-    <div className="card">
+    <div
+      className="card"
+      style={{
+        backgroundColor: getPokemonColorHex(pokemonDetail?.color),
+      }}
+    >
       <img src={pokemonDetail?.imageURL} />
       <p className="cardHeader" key={pokemonDetail?.id}>
         {pokemonDetail?.name}
       </p>
       <p className="cardCategory">{types}</p>
+      <p className="cardCategory">{pokemonDetail?.color}</p>
     </div>
   );
 };
