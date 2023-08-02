@@ -1,9 +1,14 @@
 import { useParams } from "react-router-dom";
+import PokemonDetailHeader from "../component/PokemonDetailHeader/PokemonDetailHeader";
 
 const PokemonDetail = () => {
   const { id } = useParams();
 
-  return <div>PokemonDetail {id} </div>;
+  return (
+    <>
+      <PokemonDetailHeader />
+    </>
+  );
 };
 
 export default PokemonDetail;

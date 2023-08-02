@@ -1,4 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500");
+@import url("https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500&family=Vast+Shadow&display=swap");
+* {
+  padding: 0px;
+  margin: 0px;
+}
+
 body {
   background: linear-gradient(to right, rgb(242, 112, 156), rgb(255, 148, 114));
   animation: animateGradient 2s ease-in-out infinite;

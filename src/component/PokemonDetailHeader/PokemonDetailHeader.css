@@ -1,0 +1,29 @@
+.pokemonDetailHeaderContainer {
+  display: flex;
+  width: 100%;
+  height: 300px;
+  background-color: aquamarine;
+}
+.pokemonDetailHeaderContainer .topBar {
+  display: flex;
+  width: 50%;
+  flex-grow: 1;
+  position: relative;
+}
+.pokemonDetailHeaderContainer h1 {
+  padding: 0 50px;
+  font-family: "Vast Shadow", cursive;
+  font-size: 42px;
+  align-self: center;
+  color: white;
+  text-shadow: 1px 1px 2px black;
+}
+.pokemonDetailHeaderContainer .pokemonImage {
+  width: 300px;
+  height: 300px;
+  background-color: bisque;
+  border-radius: 50%;
+  position: absolute;
+  bottom: -50%;
+  right: 50px;
+}
