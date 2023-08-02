@@ -2,7 +2,8 @@ import "./Card.css";
 import { useEffect, useState } from "react";
 import { getPokemon } from "../../network/PokeListApi";
 import PokemonDetail from "../../models/pokemonDetail";
-import { getPokemonColorHex } from "../../models/ColorEnum";
+import { PokemonColor, getPokemonColorHex } from "../../models/ColorEnum";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   url: string;
@@ -11,6 +12,7 @@ interface Props {
 const Card = ({ url }: Props) => {
   const [pokemonDetail, setPokemonDetail] = useState<PokemonDetail>();
   const [types, setTypes] = useState<string>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getPokemon(url).then((data) => {
@@ -34,7 +36,12 @@ const Card = ({ url }: Props) => {
     <div
       className="card"
       style={{
-        backgroundColor: getPokemonColorHex(pokemonDetail?.color),
+        backgroundColor: getPokemonColorHex(
+          pokemonDetail?.color || PokemonColor.Gray
+        ),
+      }}
+      onClick={() => {
+        navigate(`/pokemon/${pokemonDetail?.id}`);
       }}
     >
       <img src={pokemonDetail?.imageURL} />

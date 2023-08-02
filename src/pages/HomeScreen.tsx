@@ -1,5 +1,5 @@
 import Cards from "../component/Cards/Cards";
-import logo from "../../assets/Pokemon-Logo.png";
+import logo from "../assets/Pokemon-Logo.png";
 
 const HomeScreen = () => {
   return (
