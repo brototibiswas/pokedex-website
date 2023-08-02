@@ -1,10 +1,14 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import PokemonDetailHeader from "../component/PokemonDetailHeader/PokemonDetailHeader";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { PokemonColor, getPokemonColorHex } from "../models/ColorEnum";
+import PokemonDetail from "../models/pokemonDetail";
+import { getPokemonByID } from "../network/PokeListApi";
 
-const PokemonDetail = () => {
+const PokemonInfo = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
+  const [pokemonDetail, setPokemonDetail] = useState<PokemonDetail>();
 
   const { id } = useParams();
   const numericID = Number(id);
@@ -16,11 +20,21 @@ const PokemonDetail = () => {
     }
   });
 
+  useEffect(() => {
+    getPokemonByID(numericID).then((data) => {
+      setPokemonDetail(data);
+    });
+  }, [numericID]);
+
   return (
     <>
-      <PokemonDetailHeader id={numericID} />
+      <PokemonDetailHeader
+        name={pokemonDetail?.name || ""}
+        color={getPokemonColorHex(pokemonDetail?.color || PokemonColor.Gray)}
+        imageURL={pokemonDetail?.imageURL || ""}
+      />
     </>
   );
 };
 
-export default PokemonDetail;
+export default PokemonInfo;

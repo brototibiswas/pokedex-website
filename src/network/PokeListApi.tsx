@@ -26,6 +26,7 @@ export function getPokeList(): Promise<PokemonList> {
     });
 }
 
+// Get pokemon by URL
 export async function getPokemon(url: string): Promise<any> {
   const response = await fetch(url, { method: "GET" });
   if (!response.ok) {
@@ -59,6 +60,11 @@ export async function getPokemon(url: string): Promise<any> {
     });
 
   return promise;
+}
+
+export function getPokemonByID(id: number): Promise<any> {
+  var url: string = `${baseURL}/pokemon/${id}`;
+  return getPokemon(url);
 }
 
 function isPokemonResultList(data: any): data is PokemonList {
