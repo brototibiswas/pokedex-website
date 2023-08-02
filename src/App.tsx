@@ -1,7 +1,7 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomeScreen from "./pages/HomeScreen";
-import PokemonDetail from "./pages/PokemonDetail";
+import PokemonDetail from "./pages/PokemonInfo";
 
 function App() {
   return (
