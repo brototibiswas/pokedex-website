@@ -1,0 +1,40 @@
+@import url("https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500&family=Vast+Shadow&display=swap");
+.btn {
+  overflow: visible;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  line-height: normal;
+  cursor: pointer;
+  -moz-user-select: text;
+  display: block;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  border: 2px solid #000;
+  border-radius: 6px;
+}
+.btn:-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+.capsule {
+  font-size: 12px;
+  font-family: "Figtree";
+}
+
+.saturate-200 {
+  filter: saturate(500%);
+}
+
+.container-flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.container-flex-row {
+  display: flex;
+  flex-direction: row;
+}
