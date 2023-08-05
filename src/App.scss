@@ -13,7 +13,7 @@
     background: linear-gradient(to right, rgb(242, 112, 156), rgb(255, 148, 114));
     animation: animateGradient 2s ease-in-out infinite;
     background-size: 400% 400%;
-    height: 100vh;
+    padding-bottom: 10vh;
 
     .content-container {
         display: flex;
