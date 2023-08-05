@@ -1,11 +1,11 @@
-import PokemonType from "../../models/pokemonTypes";
+import { Pokemon } from "../../models/Pokemon";
 import "./PokemonDetailHeader.css";
 
 interface Props {
   name: string;
   color: string;
   imageURL: string;
-  types: PokemonType[];
+  types: Pokemon.Types[];
 }
 
 const PokemonDetailHeader = ({ name, color, imageURL, types }: Props) => {
@@ -22,6 +22,7 @@ const PokemonDetailHeader = ({ name, color, imageURL, types }: Props) => {
           {types.map((type) => (
             <span
               className="btn capsule saturate-200"
+              key={type.name}
               style={{ backgroundColor: color }}
             >
               {type.name}

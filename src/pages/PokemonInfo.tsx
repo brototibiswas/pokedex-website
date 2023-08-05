@@ -3,13 +3,13 @@ import "./commonPage.css";
 import PokemonDetailHeader from "../component/PokemonDetailHeader/PokemonDetailHeader";
 import { useEffect, useState } from "react";
 import { PokemonColor, getPokemonColorHex } from "../models/ColorEnum";
-import PokemonDetail from "../models/PokemonDetail";
 import { getPokemonFullDetailByID } from "../network/PokeListApi";
+import { Pokemon } from "../models/Pokemon";
 
 const PokemonInfo = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
-  const [pokemonDetail, setPokemonDetail] = useState<PokemonDetail>();
+  const [pokemonDetail, setPokemonDetail] = useState<Pokemon.AllDetail>();
 
   const { id } = useParams();
   const numericID = Number(id);
@@ -24,6 +24,7 @@ const PokemonInfo = () => {
   useEffect(() => {
     getPokemonFullDetailByID(numericID).then((data) => {
       setPokemonDetail(data);
+      console.log("general:", data);
     });
   }, [numericID]);
 

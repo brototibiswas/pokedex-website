@@ -1,88 +1,70 @@
 import { getPokemonColor } from "../models/ColorEnum";
-import PokemonDetail from "../models/PokemonDetail";
 import PokemonBasicDetail from "../models/pokemonBasicDetail";
 import PokemonList from "../models/pokemonList";
-import PokemonType from "../models/pokemonTypes";
+import { ApiUtils } from "./ApiUtils";
+import { Pokemon } from "../models/Pokemon";
 
 let baseURL = "https://pokeapi.co/api/v2";
 
-// Get pokemon List
-export function getPokeList(): Promise<PokemonList> {
-  return fetch(`${baseURL}/pokemon`, { method: "GET" })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(
-          `failed to get response. response status ${response.status}`
-        );
-      }
-      return response.json();
-    })
-    .then((data) => {
-      if (!isPokemonResultList(data)) {
-        throw new Error("parsing error!");
-      }
-      return data;
-    })
-    .catch((error) => {
-      throw new Error(error);
-    });
+// ======== Get pokemon List
+export async function getPokemonList(): Promise<PokemonList[]> {
+  let url = `${baseURL}/pokemon`;
+  const data = await ApiUtils.getJsonDataByURL(url);
+  const pokemonRawList = ApiUtils.getArrayFromData(data.results);
+  const pokemonParsedList: PokemonList[] = [];
+
+  type model = {
+    name: string;
+    url: string;
+  };
+
+  pokemonRawList.forEach((element: model) => {
+    const list = {
+      name: element.name || "",
+      url: element.url || "",
+    };
+    pokemonParsedList.push(list);
+  });
+
+  return pokemonParsedList;
 }
 
-// Get pokemon by URL for Home Screen
-export async function getPokemonBasicDetail(
+// ======== Get pokemon by URL for Home Screen
+export async function getGeneralInformationByURL(
   url: string
-): Promise<PokemonBasicDetail> {
-  const pokemonData = await getJsonDataByURL(url);
-  const speciesData = await getJsonDataByURL(pokemonData.species.url);
+): Promise<Pokemon.GeneralInformation> {
+  const pokemonData = await ApiUtils.getJsonDataByURL(url);
+  const speciesData = await ApiUtils.getJsonDataByURL(pokemonData.species.url);
   return getPokemonBasicDetailFromData(pokemonData, speciesData);
 }
 
 // Get Pokemon Details by ID
 export async function getPokemonFullDetailByID(
   id: number
-): Promise<PokemonDetail> {
+): Promise<Pokemon.AllDetail> {
   var url: string = `${baseURL}/pokemon/${id}`;
-  const pokemonData = await getJsonDataByURL(url);
-  const speciesData = await getJsonDataByURL(pokemonData.species.url);
+  const pokemonData = await ApiUtils.getJsonDataByURL(url);
+  const speciesData = await ApiUtils.getJsonDataByURL(pokemonData.species.url);
   const basicDetail = getPokemonBasicDetailFromData(pokemonData, speciesData);
+  const statDetails = getPokemonStatsFromStatData(pokemonData.stats);
 
   return {
     generalInformation: basicDetail,
+    stat: statDetails || [],
   };
 }
 
 // =================================================================
 
-async function getJsonDataByURL(url: string): Promise<any> {
-  const response = await fetch(url, { method: "GET" });
-  if (!response.ok) {
-    throw new Error(
-      `failed to get response. response status ${response.status}`
-    );
-  }
-  return await response.json();
-}
-
-function isPokemonResultList(data: any): data is PokemonList {
-  if (!data || !Array.isArray(data.results)) {
-    return false;
-  }
-
-  return data.results.every((item: { name: any; url: any }) => {
-    return typeof item.name == "string" && typeof item.url == "string";
-  });
-}
-
-function getPokemonTypes(data: any): PokemonType[] {
-  if (!Array.isArray(data.types)) {
+function getPokemonTypes(data: any): Pokemon.Types[] {
+  if (!ApiUtils.isArray(data.types)) {
     return [];
   }
 
-  const types: PokemonType[] = [];
+  const types: Pokemon.Types[] = [];
 
   data.types.forEach((element: { type?: { name?: string; url?: string } }) => {
-    console.log(element.type);
-    const pokemonType: PokemonType = {
+    const pokemonType: Pokemon.Types = {
       name: element.type?.name || "",
       url: element.type?.url || "",
     };
@@ -92,16 +74,44 @@ function getPokemonTypes(data: any): PokemonType[] {
   return types;
 }
 
+function getPokemonStatsFromStatData(data: any): Pokemon.Stat[] {
+  if (!data || !ApiUtils.isArray(data)) {
+    return [];
+  }
+
+  type model = {
+    base_stat?: Number;
+    stat: {
+      name?: string;
+    };
+  };
+
+  let stats: Pokemon.Stat[] = [];
+
+  data.forEach((element: model) => {
+    const stat: Pokemon.Stat = {
+      baseValue: element.base_stat || 0,
+      name: element.stat.name || "",
+    };
+    stats.push(stat);
+  });
+
+  return stats;
+}
+
 function getPokemonBasicDetailFromData(
   pokemonData: any,
   speciesData: any
-): PokemonBasicDetail {
-  const pokemon: PokemonBasicDetail = {
+): Pokemon.GeneralInformation {
+  const data: Pokemon.GeneralInformation = {
     id: pokemonData.id || 0,
     name: pokemonData.name || "",
     imageURL: pokemonData.sprites.other["official-artwork"].front_default || "",
     types: getPokemonTypes(pokemonData),
     color: getPokemonColor(speciesData.color?.name || ""),
+    height: pokemonData?.height || 0,
+    weight: pokemonData?.weight || 0,
+    baseExperience: pokemonData?.base_experience || 0,
   };
-  return pokemon;
+  return data;
 }
