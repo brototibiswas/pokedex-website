@@ -1,10 +1,5 @@
-import { PokemonColor } from "./ColorEnum";
-import PokemonType from "./pokemonTypes";
+import PokemonBasicDetail from "./pokemonBasicDetail";
 
 export default interface PokemonDetail {
-  name: string;
-  id: number;
-  imageURL: string;
-  types: PokemonType[];
-  color: PokemonColor;
+  generalInformation: PokemonBasicDetail;
 }

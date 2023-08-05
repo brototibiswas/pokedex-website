@@ -3,9 +3,8 @@ import "./commonPage.css";
 import PokemonDetailHeader from "../component/PokemonDetailHeader/PokemonDetailHeader";
 import { useEffect, useState } from "react";
 import { PokemonColor, getPokemonColorHex } from "../models/ColorEnum";
-import PokemonDetail from "../models/pokemonDetail";
-import { getPokemonByID } from "../network/PokeListApi";
-import { types } from "sass";
+import PokemonDetail from "../models/PokemonDetail";
+import { getPokemonFullDetailByID } from "../network/PokeListApi";
 
 const PokemonInfo = () => {
   const navigate = useNavigate();
@@ -23,7 +22,7 @@ const PokemonInfo = () => {
   });
 
   useEffect(() => {
-    getPokemonByID(numericID).then((data) => {
+    getPokemonFullDetailByID(numericID).then((data) => {
       setPokemonDetail(data);
     });
   }, [numericID]);
@@ -31,10 +30,12 @@ const PokemonInfo = () => {
   return (
     <>
       <PokemonDetailHeader
-        name={pokemonDetail?.name || ""}
-        color={getPokemonColorHex(pokemonDetail?.color || PokemonColor.Gray)}
-        imageURL={pokemonDetail?.imageURL || ""}
-        types={pokemonDetail?.types || []}
+        name={pokemonDetail?.generalInformation.name || ""}
+        color={getPokemonColorHex(
+          pokemonDetail?.generalInformation.color || PokemonColor.Gray
+        )}
+        imageURL={pokemonDetail?.generalInformation.imageURL || ""}
+        types={pokemonDetail?.generalInformation.types || []}
       />
     </>
   );

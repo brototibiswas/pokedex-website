@@ -1,7 +1,7 @@
 import "./Card.css";
 import { useEffect, useState } from "react";
-import { getPokemon } from "../../network/PokeListApi";
-import PokemonDetail from "../../models/pokemonDetail";
+import { getPokemonBasicDetail } from "../../network/PokeListApi";
+import PokemonBasicDetail from "../../models/pokemonBasicDetail";
 import { PokemonColor, getPokemonColorHex } from "../../models/ColorEnum";
 import { useNavigate } from "react-router-dom";
 
@@ -10,12 +10,12 @@ interface Props {
 }
 
 const Card = ({ url }: Props) => {
-  const [pokemonDetail, setPokemonDetail] = useState<PokemonDetail>();
+  const [pokemonDetail, setPokemonDetail] = useState<PokemonBasicDetail>();
   const [types, setTypes] = useState<string>();
   const navigate = useNavigate();
 
   useEffect(() => {
-    getPokemon(url).then((data) => {
+    getPokemonBasicDetail(url).then((data) => {
       setPokemonDetail(data);
     });
   }, [url]);

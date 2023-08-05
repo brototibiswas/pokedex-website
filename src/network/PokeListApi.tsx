@@ -1,10 +1,12 @@
 import { getPokemonColor } from "../models/ColorEnum";
-import PokemonDetail from "../models/pokemonDetail";
+import PokemonDetail from "../models/PokemonDetail";
+import PokemonBasicDetail from "../models/pokemonBasicDetail";
 import PokemonList from "../models/pokemonList";
 import PokemonType from "../models/pokemonTypes";
 
 let baseURL = "https://pokeapi.co/api/v2";
 
+// Get pokemon List
 export function getPokeList(): Promise<PokemonList> {
   return fetch(`${baseURL}/pokemon`, { method: "GET" })
     .then((response) => {
@@ -26,45 +28,39 @@ export function getPokeList(): Promise<PokemonList> {
     });
 }
 
-// Get pokemon by URL
-export async function getPokemon(url: string): Promise<any> {
+// Get pokemon by URL for Home Screen
+export async function getPokemonBasicDetail(
+  url: string
+): Promise<PokemonBasicDetail> {
+  const pokemonData = await getJsonDataByURL(url);
+  const speciesData = await getJsonDataByURL(pokemonData.species.url);
+  return getPokemonBasicDetailFromData(pokemonData, speciesData);
+}
+
+// Get Pokemon Details by ID
+export async function getPokemonFullDetailByID(
+  id: number
+): Promise<PokemonDetail> {
+  var url: string = `${baseURL}/pokemon/${id}`;
+  const pokemonData = await getJsonDataByURL(url);
+  const speciesData = await getJsonDataByURL(pokemonData.species.url);
+  const basicDetail = getPokemonBasicDetailFromData(pokemonData, speciesData);
+
+  return {
+    generalInformation: basicDetail,
+  };
+}
+
+// =================================================================
+
+async function getJsonDataByURL(url: string): Promise<any> {
   const response = await fetch(url, { method: "GET" });
   if (!response.ok) {
     throw new Error(
       `failed to get response. response status ${response.status}`
     );
   }
-
-  const data = await response.json();
-  const speciesResponse = await fetch(data.species?.url || "", {
-    method: "GET",
-  });
-  const speciesData = await speciesResponse.json();
-
-  const promise = fetch(url, { method: "GET" })
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      const pokemon: PokemonDetail = {
-        id: data.id || 0,
-        name: data.name || "",
-        imageURL: data.sprites.other["official-artwork"].front_default || "",
-        types: getPokemonTypes(data),
-        color: getPokemonColor(speciesData.color?.name || ""),
-      };
-      return pokemon;
-    })
-    .catch((error) => {
-      throw new Error(error);
-    });
-
-  return promise;
-}
-
-export function getPokemonByID(id: number): Promise<any> {
-  var url: string = `${baseURL}/pokemon/${id}`;
-  return getPokemon(url);
+  return await response.json();
 }
 
 function isPokemonResultList(data: any): data is PokemonList {
@@ -94,4 +90,18 @@ function getPokemonTypes(data: any): PokemonType[] {
   });
 
   return types;
+}
+
+function getPokemonBasicDetailFromData(
+  pokemonData: any,
+  speciesData: any
+): PokemonBasicDetail {
+  const pokemon: PokemonBasicDetail = {
+    id: pokemonData.id || 0,
+    name: pokemonData.name || "",
+    imageURL: pokemonData.sprites.other["official-artwork"].front_default || "",
+    types: getPokemonTypes(pokemonData),
+    color: getPokemonColor(speciesData.color?.name || ""),
+  };
+  return pokemon;
 }
