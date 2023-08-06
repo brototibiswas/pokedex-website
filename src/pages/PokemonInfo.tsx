@@ -3,7 +3,6 @@ import "./commonPage.css";
 import PokemonDetailHeader from "../component/PokemonDetailHeader/PokemonDetailHeader";
 import { useEffect, useState } from "react";
 import { PokemonColor, getPokemonColorHex } from "../models/ColorEnum";
-import { Pokemon } from "../models/Pokemon";
 import { PokemonGeneralApi } from "../network/PokemonGeneralApi";
 import { PokemonSpeciesApi } from "../network/PokemonSpeciesApi";
 
