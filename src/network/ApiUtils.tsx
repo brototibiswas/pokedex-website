@@ -18,4 +18,8 @@ export namespace ApiUtils {
       return [];
     } else return data;
   }
+
+  export async function getRawDataByEndpoint(endpoint: string): Promise<any> {
+    return getJsonDataByURL(`https://pokeapi.co/api/v2${endpoint}`);
+  }
 }

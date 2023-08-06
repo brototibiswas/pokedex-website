@@ -1,25 +1,31 @@
 import "./Card.css";
 import { useEffect, useState } from "react";
-import { getGeneralInformationByURL } from "../../network/PokeListApi";
 import { PokemonColor, getPokemonColorHex } from "../../models/ColorEnum";
 import { useNavigate } from "react-router-dom";
-import { Pokemon } from "../../models/Pokemon";
+import { PokemonGeneralApi } from "../../network/PokemonGeneralApi";
+import { PokemonSpeciesApi } from "../../network/PokemonSpeciesApi";
 
 interface Props {
-  url: string;
+  id: number;
 }
 
-const Card = ({ url }: Props) => {
-  const [pokemonDetail, setPokemonDetail] =
-    useState<Pokemon.GeneralInformation>();
+const Card = ({ id }: Props) => {
+  const [pokemonDetail, setPokemonDetail] = useState<PokemonGeneralApi.Model>();
   const [types, setTypes] = useState<string>();
+  const [speciesData, setSpeciesData] = useState<PokemonSpeciesApi.Model>();
   const navigate = useNavigate();
 
   useEffect(() => {
-    getGeneralInformationByURL(url).then((data) => {
+    PokemonGeneralApi.getDataByID(id).then((data) => {
       setPokemonDetail(data);
     });
-  }, [url]);
+  }, [id]);
+
+  useEffect(() => {
+    PokemonSpeciesApi.getSpeciesDataByID(id).then((data) => {
+      setSpeciesData(data);
+    });
+  }, [id]);
 
   useEffect(() => {
     const pokemonTypes = pokemonDetail?.types || [];
@@ -38,7 +44,7 @@ const Card = ({ url }: Props) => {
       className="card"
       style={{
         backgroundColor: getPokemonColorHex(
-          pokemonDetail?.color || PokemonColor.Gray
+          speciesData?.color || PokemonColor.Gray
         ),
       }}
       onClick={() => {

@@ -3,13 +3,15 @@ import "./commonPage.css";
 import PokemonDetailHeader from "../component/PokemonDetailHeader/PokemonDetailHeader";
 import { useEffect, useState } from "react";
 import { PokemonColor, getPokemonColorHex } from "../models/ColorEnum";
-import { getPokemonFullDetailByID } from "../network/PokeListApi";
 import { Pokemon } from "../models/Pokemon";
+import { PokemonGeneralApi } from "../network/PokemonGeneralApi";
+import { PokemonSpeciesApi } from "../network/PokemonSpeciesApi";
 
 const PokemonInfo = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
-  const [pokemonDetail, setPokemonDetail] = useState<Pokemon.AllDetail>();
+  const [pokemonDetail, setPokemonDetail] = useState<PokemonGeneralApi.Model>();
+  const [speciesData, setSpeciesData] = useState<PokemonSpeciesApi.Model>();
 
   const { id } = useParams();
   const numericID = Number(id);
@@ -22,21 +24,21 @@ const PokemonInfo = () => {
   });
 
   useEffect(() => {
-    getPokemonFullDetailByID(numericID).then((data) => {
+    PokemonGeneralApi.getDataByID(numericID).then((data) => {
       setPokemonDetail(data);
-      console.log("general:", data);
+    });
+    PokemonSpeciesApi.getSpeciesDataByID(numericID).then((data) => {
+      setSpeciesData(data);
     });
   }, [numericID]);
 
   return (
     <>
       <PokemonDetailHeader
-        name={pokemonDetail?.generalInformation.name || ""}
-        color={getPokemonColorHex(
-          pokemonDetail?.generalInformation.color || PokemonColor.Gray
-        )}
-        imageURL={pokemonDetail?.generalInformation.imageURL || ""}
-        types={pokemonDetail?.generalInformation.types || []}
+        name={pokemonDetail?.name || ""}
+        color={getPokemonColorHex(speciesData?.color || PokemonColor.Gray)}
+        imageURL={pokemonDetail?.imageURL || ""}
+        types={pokemonDetail?.types || []}
       />
     </>
   );

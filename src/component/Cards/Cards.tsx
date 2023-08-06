@@ -1,25 +1,26 @@
 import Card from "../Card/Card";
-import { getPokemonList } from "../../network/PokeListApi";
 import "./Cards.css";
 import { useEffect, useState } from "react";
+import { PokemonListApi } from "../../network/PokemonListApi";
 
 const Cards = () => {
-  const [pokemonURLList, setpokemonURLList] = useState<string[]>();
+  const [pokemonIDList, setPokemonIDList] = useState<number[]>();
 
   useEffect(() => {
-    getPokemonList().then((data) => {
-      setpokemonURLList(
+    PokemonListApi.getData().then((data) => {
+      setPokemonIDList(
         data.map((pokemon) => {
-          return pokemon.url;
+          let url = pokemon.url.split("/");
+          return Number(url[url.length - 2]);
         })
       );
     });
-  });
+  }, []);
 
   return (
     <div className="cards-container">
-      {pokemonURLList?.map((pokemon) => {
-        return <Card key={pokemon} url={pokemon} />;
+      {pokemonIDList?.map((pokemon) => {
+        return <Card key={pokemon} id={pokemon} />;
       })}
     </div>
   );
