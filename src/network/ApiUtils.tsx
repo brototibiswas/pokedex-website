@@ -22,4 +22,11 @@ export namespace ApiUtils {
   export async function getRawDataByEndpoint(endpoint: string): Promise<any> {
     return getJsonDataByURL(`https://pokeapi.co/api/v2${endpoint}`);
   }
+
+  export function formatToPlainText(
+    text: string,
+    replacementText: string
+  ): string {
+    return text.replace(/\n/g, " ").replace(/\f/g, " ") || replacementText;
+  }
 }
