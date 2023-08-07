@@ -1,10 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500&family=Vast+Shadow&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500&family=Vast+Shadow&family=Coustard&display=swap");
 * {
   padding: 0px;
   margin: 0px;
 }
 
-.main-container {
+.full-container {
   display: flex;
   justify-content: center;
   width: 100vw;
@@ -13,12 +13,12 @@
   background-size: 400% 400%;
   padding-bottom: 10vh;
 }
-.main-container .content-container {
+.full-container .content-container {
   display: flex;
   flex-direction: column;
   width: 75vw;
 }
-.main-container .content-container .main-logo {
+.full-container .content-container .main-logo {
   width: 300px;
   height: auto;
   align-self: center;

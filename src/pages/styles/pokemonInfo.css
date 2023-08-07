@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500&family=Vast+Shadow&family=Coustard&display=swap");
+.main-container {
+  display: flex;
+  width: 100vw;
+  align-items: center;
+}
+.main-container .content-container {
+  width: 1200px;
+  display: flex;
+  padding: 30px 50px;
+  gap: 50px;
+}
+.main-container .content-container .section-left {
+  flex-grow: 1;
+}
+.main-container .content-container .section-left .description-container {
+  padding-left: 0px;
+}
+.main-container .content-container .section-left .description-container p {
+  width: 60%;
+  font-family: "Coustard";
+  letter-spacing: 2px;
+  line-height: 2rem;
+}
+.main-container .content-container .section-right {
+  width: 350px;
+  margin-top: 90px;
+}
+.main-container .content-container .section-card-container {
+  gap: 50px;
+  overflow: none;
+}

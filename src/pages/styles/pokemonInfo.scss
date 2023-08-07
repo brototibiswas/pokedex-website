@@ -1,0 +1,40 @@
+@import "../../sass/variables";
+
+.main-container {
+    display: flex;
+    width: 100vw;
+    align-items: center;
+
+    .content-container {
+        width: 1200px;
+        display: flex;
+        padding: 30px 50px;
+        gap: 50px;
+
+        .section-left {
+            flex-grow: 1;
+
+            .description-container {
+                padding-left: 0px;
+            
+                p {
+                    width: 60%;
+                    font-family: $fontText;
+                    letter-spacing: 2px;
+                    line-height: 2rem;
+                }
+            }
+        }
+    
+        .section-right {
+            width: 350px;
+            margin-top: 90px;
+        }
+
+        .section-card-container {
+            gap: 50px;
+            overflow: none;
+        }
+    }
+    
+}

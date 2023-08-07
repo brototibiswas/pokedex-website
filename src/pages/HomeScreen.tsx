@@ -3,7 +3,7 @@ import logo from "../assets/Pokemon-Logo.png";
 
 const HomeScreen = () => {
   return (
-    <div className="main-container">
+    <div className="full-container">
       <div className="content-container">
         <img className="main-logo" src={logo} />
         <Cards />
