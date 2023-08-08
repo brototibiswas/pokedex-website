@@ -10,13 +10,28 @@
   background-color: #ffffff;
   font-family: "Figtree";
   border-radius: 8px;
+  overflow: hidden;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  padding-left: 20px;
+  padding: 0 !important;
 }
-.table-card-container .table-card p.card-header {
+.table-card-container .table-card .card-header {
+  padding: 10px 25px;
+  background-color: aquamarine;
+  align-self: stretch;
+}
+.table-card-container .table-card .card-header p {
   font-weight: bold;
   font-family: "Coustard";
-  width: 100%;
   font-size: 24px;
-  padding: 0 25px;
+  text-align: center;
+}
+.table-card-container .table-card .card-content {
+  gap: 60px;
+  padding: 10px;
+}
+.table-card-container .table-card .card-content .table-row .row-item {
+  padding: 5px;
+}
+.table-card-container .table-card .card-content .table-header {
+  font-weight: bold;
 }

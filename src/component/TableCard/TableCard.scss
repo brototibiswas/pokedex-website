@@ -6,14 +6,35 @@
     .table-card {
         @include cardDesign();
         box-shadow: $boxShadow-pop;
-        padding-left: 20px;
+        padding: 0 !important;
 
-        p.card-header {
-            font-weight: bold;
-            font-family: $fontText;
-            width: 100%;
-            font-size: 24px;
-            padding: 0 25px;
+        .card-header {
+            padding: 10px 25px;
+            background-color: aquamarine;
+            align-self: stretch;
+
+            p {
+                font-weight: bold;
+                font-family: $fontText;
+                font-size: 24px;
+                text-align: center;
+            }
         }
+
+        .card-content {
+            gap: 60px;
+            padding: 10px;
+
+            .table-row {
+                .row-item {
+                    padding: 5px;
+                }
+            }
+
+            .table-header {
+                font-weight: bold;
+            }
+        }
+
     }
 }

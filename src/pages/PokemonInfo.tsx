@@ -52,7 +52,11 @@ const PokemonInfo = () => {
 
             <TableCard>
               <div className="table-card">
-                <p className="card-header">Abilities</p>
+                <div className="card-header">
+                  <p>Abilities</p>
+                </div>
+
+                <div className="card-content container-flex-row"></div>
               </div>
             </TableCard>
           </section>
@@ -60,15 +64,18 @@ const PokemonInfo = () => {
           <section className="section-right">
             <TableCard>
               <div className="table-card">
-                <p className="card-header">Basic Stats</p>
-                <div className="table-container container-flex-row">
-                  <div className="table-card-header">
-                    <p>Height</p>
-                    <p>Weight</p>
+                <div className="card-header">
+                  <p>Basic Stats</p>
+                </div>
+
+                <div className="card-content container-flex-row">
+                  <div className="table-row table-header">
+                    <p className="row-item">Height</p>
+                    <p className="row-item">Weight</p>
                   </div>
-                  <div className="table-card-description">
-                    <p>{pokemonDetail?.height}</p>
-                    <p>{pokemonDetail?.weight}</p>
+                  <div className="table-row table-content">
+                    <p className="row-item">{pokemonDetail?.height}</p>
+                    <p className="row-item">{pokemonDetail?.weight}</p>
                   </div>
                 </div>
               </div>
