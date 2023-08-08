@@ -52,7 +52,14 @@ const PokemonInfo = () => {
 
             <TableCard>
               <div className="table-card">
-                <div className="card-header">
+                <div
+                  className="card-header"
+                  style={{
+                    backgroundColor: getPokemonColorHex(
+                      speciesData?.color || PokemonColor.Gray
+                    ),
+                  }}
+                >
                   <p>Abilities</p>
                 </div>
 
@@ -64,7 +71,14 @@ const PokemonInfo = () => {
           <section className="section-right">
             <TableCard>
               <div className="table-card">
-                <div className="card-header">
+                <div
+                  className="card-header"
+                  style={{
+                    backgroundColor: getPokemonColorHex(
+                      speciesData?.color || PokemonColor.Gray
+                    ),
+                  }}
+                >
                   <p>Basic Stats</p>
                 </div>
 

@@ -22,10 +22,13 @@
         }
 
         .card-content {
-            gap: 60px;
-            padding: 10px;
+            align-self: stretch;
+            justify-content: space-evenly;
+            padding: 10px 20px;
 
             .table-row {
+                flex-grow: 1;
+
                 .row-item {
                     padding: 5px;
                 }

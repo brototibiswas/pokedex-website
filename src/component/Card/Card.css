@@ -21,6 +21,7 @@
   background-color: #ffffff;
   font-family: "Figtree";
   border-radius: 8px;
+  overflow: hidden;
 }
 .card:hover {
   transform: translateY(-10px);
